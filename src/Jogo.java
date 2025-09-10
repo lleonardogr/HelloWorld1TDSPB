@@ -1,10 +1,8 @@
 import java.time.LocalDate;
 
-public class Jogo {
+public class Jogo extends Conteudo {
     //Atributos/Propriedades/Campos
-    String titulo;
     String plataforma;
-    LocalDate dataLancamento;
 
     @Override
     public String toString() {

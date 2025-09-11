@@ -1,12 +1,12 @@
-import java.time.LocalDate;
+package entities;
 
 public class Jogo extends Conteudo {
     //Atributos/Propriedades/Campos
-    String plataforma;
+    public String plataforma;
 
     @Override
     public String toString() {
-        return "Jogo{" +
+        return "entities.Jogo{" +
                 "titulo='" + titulo + '\'' +
                 ", plataforma='" + plataforma + '\'' +
                 ", dataLancamento=" + dataLancamento +

@@ -37,7 +37,9 @@ public class Main {
                             case 1 -> jogoService.AdicionarJogo(scan, catalogo);
                             case 2 -> jogoService.ListarJogos(catalogo);
                             case 3 -> jogoService.RemoverJogo(scan, catalogo);
-                            case 4 -> voltar = true;
+                            case 4 -> jogoService.AvaliarJogo(scan, catalogo);
+                            case 5 -> jogoService.ListarAvaliacoes(scan, catalogo);
+                            case 0 -> voltar = true;
                             default -> System.out.println("Opção inválida!");
                         }
                     }

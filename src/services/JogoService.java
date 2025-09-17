@@ -1,6 +1,7 @@
 package services;
 
 import entities.*;
+import utils.IOUtils;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,7 +14,9 @@ public class JogoService {
                         1 - Cadastrar novo jogo
                         2 - Listar jogos cadastrados
                         3 - Remover jogo
-                        4 - Voltar
+                        4 - Avaliar Jogo
+                        5 - Listar avaliações de um jogo
+                        0 - Voltar
                         """;
 
     public void AdicionarJogo(Scanner scan, ArrayList<Conteudo> catalogo){
@@ -44,9 +47,41 @@ public class JogoService {
     }
 
     public void RemoverJogo(Scanner scan, ArrayList<Conteudo> catalogo){
-        System.out.println("Digite o número do jogo que deseja remover:");
+        IOUtils.println("Digite o número do jogo que deseja remover:");
         var numJogo = scan.nextInt();
         scan.nextLine();
         catalogo.remove(numJogo - 1);
+    }
+
+    public void AvaliarJogo(Scanner scan, ArrayList<Conteudo> catalogo){
+        IOUtils.println("Digite o número do jogo que deseja avaliar: ");
+        var numJogo = IOUtils.scanInt(scan);
+        var jogo = (Jogo) catalogo.get(numJogo);
+
+        IOUtils.println("Digite seu nome:");
+        var nome = scan.nextLine();
+        IOUtils.println("Digite sua nota (0 a 10):");
+        var nota = IOUtils.scanInt(scan);
+        IOUtils.println("Digite seu comentário:");
+        var comentario = scan.nextLine();
+
+        var avaliacao = new Avaliacao();
+        avaliacao.nomeUsuario = nome;
+        avaliacao.nota = nota;
+        avaliacao.comentario = comentario;
+        avaliacao.dataLancamento = LocalDate.now();
+
+        jogo.avaliacoes.add(avaliacao);
+        IOUtils.println("Avaliação adicionada com sucesso!");
+    }
+
+    public void ListarAvaliacoes(Scanner scan, ArrayList<Conteudo> catalogo){
+        IOUtils.println("Digite o número do jogo que deseja ver as avaliações:");
+
+        var numJogo = IOUtils.scanInt(scan);
+        var jogo = (Jogo) catalogo.get(numJogo);
+
+        for (var avaliacao : jogo.avaliacoes)
+            IOUtils.println(avaliacao.toString());
     }
 }

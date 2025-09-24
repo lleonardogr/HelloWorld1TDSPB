@@ -7,6 +7,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static utils.IOUtils.println;
+import static utils.IOUtils.validateLocalDte;
+
 public class JogoService {
 
     public final String MENU_JOGOS = """
@@ -24,13 +27,22 @@ public class JogoService {
         var titulo = scan.nextLine();
         System.out.println("Digite a plataforma do jogo:");
         var plataforma = scan.nextLine();
-        System.out.println("Digite a data de lançamento do jogo (YYYY-MM-DD):");
-        var dataLancamento = scan.nextLine();
+
+        var dataLancamento = LocalDate.now();
+
+        while (true) {
+            System.out.println("Digite a data de lançamento do jogo (YYYY-MM-DD):");
+            var dataLancamentoInput = scan.nextLine();
+            if(validateLocalDte(dataLancamentoInput)) {
+                dataLancamento = LocalDate.parse(dataLancamentoInput);
+                break;
+            }
+        }
 
         var jogo = new Jogo();
         jogo.titulo = titulo;
         jogo.plataforma = plataforma;
-        jogo.dataLancamento = LocalDate.parse(dataLancamento);
+        jogo.dataLancamento = dataLancamento;
 
         catalogo.add(jogo);
         System.out.println("entities.Jogo " + jogo.titulo + " cadastrado com sucesso!");
@@ -48,8 +60,11 @@ public class JogoService {
 
     public void RemoverJogo(Scanner scan, ArrayList<Conteudo> catalogo){
         IOUtils.println("Digite o número do jogo que deseja remover:");
-        var numJogo = scan.nextInt();
-        scan.nextLine();
+        var numJogo = IOUtils.scanInt(scan);
+        while (numJogo < 0 || numJogo > catalogo.size()) {
+            println("Jogo: " + numJogo + " não encontrado!, digite um jogo válido.");
+            numJogo = IOUtils.scanInt(scan);
+        }
         catalogo.remove(numJogo - 1);
     }
 
@@ -60,8 +75,15 @@ public class JogoService {
 
         IOUtils.println("Digite seu nome:");
         var nome = scan.nextLine();
+
         IOUtils.println("Digite sua nota (0 a 10):");
+
         var nota = IOUtils.scanInt(scan);
+        while (nota > 10 || nota < 0){
+            println("Nota inválida! Digite uma nota entre 0 e 10.");
+            nota = IOUtils.scanInt(scan);
+        }
+
         IOUtils.println("Digite seu comentário:");
         var comentario = scan.nextLine();
 

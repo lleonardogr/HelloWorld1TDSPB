@@ -2,14 +2,14 @@ package entities;
 
 public class Jogo extends Conteudo {
     //Atributos/Propriedades/Campos
-    public String plataforma;
+    public GamePlataform plataforma;
 
     public int getMediaAvaliacoes(){
         if(avaliacoes.isEmpty()) return 0;
 
         int soma = 0;
         for(var avaliacao : avaliacoes)
-            soma += avaliacao.nota;
+            soma += avaliacao.getNota();
         return soma / avaliacoes.size();
     }
 

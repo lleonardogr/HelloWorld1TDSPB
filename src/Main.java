@@ -1,5 +1,7 @@
 import entities.Conteudo;
+import entities.Filme;
 import entities.Jogo;
+import entities.Serie;
 import services.FilmeService;
 import services.JogoService;
 
@@ -19,6 +21,7 @@ public class Main {
         var scan = new Scanner(System.in);
         var jogoService = new JogoService();
         var filmeService = new FilmeService();
+
 
         while (true) {
            println(MENU_PRINCIPAL);
